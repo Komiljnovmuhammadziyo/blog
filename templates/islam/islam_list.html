@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Islamic List Page{% endblock %}
+
+{% block content %}
+    {% for islamic in islam %}
+        <div class="card">
+            <div class="container">
+                <a href="{% url 'blog:islam-view' islamic.id %}">
+                    <img class="cover-pic" src="{{ islamic.image.url }}" alt="{{ islamic.title }}">
+                </a>
+            </div>
+
+            <div class="col-4 ms-10">
+                <a href="{% url 'blog:islam-view' islamic.id %}">{{ islamic.title }}</a>
+                <p>{{ islamic.body | truncatewords:20 }}</p>
+            </div>
+
+
+        </div>
+    {% endfor %}
+{% endblock %}

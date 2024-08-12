@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+{% block content %}
+<center>
+
+    <div class="profile-container">
+        <h2>Profile</h2>
+        <div class="profile-info">
+            <img src="{{ user.image.url }}">
+            <p><strong>Username:</strong><b> {{ user.username }} </b></p>
+            <p><strong>Email:</strong> <b> {{ user.email }} </b></p>
+            <p><strong>First name:</strong> <b> {{ user.first_name }} </b></p>
+            <p><strong>Last name:</strong> <b> {{ user.last_name }} </b></p>
+
+            <a href="{% url 'users:logout' %}"> Log out</a>
+        </div>
+    </div>
+</center>
+{% endblock content %}

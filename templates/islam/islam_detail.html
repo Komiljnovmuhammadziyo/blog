@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+{% block content %}
+<center>
+
+    <div class="container">
+        <div class="profile-info">
+        <img class="img" src="{{ islam.image.url }}">
+            <h1>{{ islam.title }}</h1>
+            <h4>{{ islam.body }}</h4>
+            <h4>{{ comment.body }}</h4>
+            <h4>{{ comment.question }}</h4>
+        </div>
+    </div>
+        <div class="col-7">
+        <h2>Comments</h2>
+        <hr>
+        <div class="row me-3">
+            <div class="col-8">
+                <h4>Izoh qoldirish</h4>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">Jo'natish</button><br><br>
+                </form>
+            </div>
+        </div>
+    </div>
+</center>
+{% endblock content %}
