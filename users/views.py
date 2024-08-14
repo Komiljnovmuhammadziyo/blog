@@ -10,8 +10,13 @@ from django.views.generic import UpdateView
 from users.forms import RegisterForm, UserForm, UserProfileForm
 from users.models import CustomUser
 
+from django.shortcuts import render, redirect
+from django.views import View
+from django.contrib import messages
+from .forms import RegisterForm
 
-class UserCreateViews(View):
+
+class UserCreateView(View):
     def get(self,request):
         register_form = RegisterForm
         messages.info(request,'You have an account now you need login')
@@ -32,6 +37,7 @@ class UserCreateViews(View):
             }
             return render(request, template_name='registration/register.html', context=context)
 
+
 class LoginUserView(View):
     def get(self, request):
         login_form = AuthenticationForm()
@@ -51,7 +57,7 @@ class LoginUserView(View):
             user = login_form.get_user()
             login(request, user)
             messages.success(request, 'You have been Log In now')
-            return redirect('home_page')
+            return redirect('blog:islam-list-view')
 
         else:
             return render(request, template_name='registration/login.html', context={'form':login_form})
@@ -67,7 +73,7 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         messages.info(request,'You have been logged out')
-        return redirect('home_page')
+        return redirect('blog:islam-list-view')
 
 
 

@@ -10,24 +10,123 @@
         <div class="profile-info">
         <img class="img" src="{{ islam.image.url }}">
             <h1>{{ islam.title }}</h1>
-            <h4>{{ islam.body }}</h4>
-            <h4>{{ comment.body }}</h4>
-            <h4>{{ comment.question }}</h4>
-        </div>
-    </div>
-        <div class="col-7">
-        <h2>Comments</h2>
-        <hr>
-        <div class="row me-3">
-            <div class="col-8">
-                <h4>Izoh qoldirish</h4>
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-success">Jo'natish</button><br><br>
-                </form>
+            <h4 class="black-text">{{ islam.body }}</h4>
+    <style>
+        .black-text {
+            color: black;
+        }
+        .comment-section {
+            margin-top: 30px;
+        }
+        .comment {
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        .comment img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        .comment-body {
+            display: flex;
+            align-items: center;
+        }
+        .comment-user {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .comment-text {
+            margin-top: 5px;
+        }
+        /* Form container settings */
+        .form-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9; /* Form orqasida och kulrang fon */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Pastki qismiga soya qo'shish */
+        }
+
+        /* Title styling */
+        .form-container h4 {
+            margin-bottom: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Input and textarea styling */
+        .form-container form input[type="text"],
+        .form-container form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        /* Button styling */
+        .form-container form button {
+            display: inline-block;
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Button hover effect */
+        .form-container form button:hover {
+            background-color: #218838;
+        }
+
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 15px;
+            }
+
+            .form-container h4 {
+                font-size: 20px;
+            }
+        }
+
+    </style>
+
+            <div class="comment-section">
+                <h2>Comments</h2>
+                {% for comment in comments %}
+                <div class="comment">
+                    <div class="comment-body">
+                        <img src="{{ comment.user.image.url }}" alt="{{ comment.user.username }}">
+                        <div>
+                            <span class="comment-user">{{ comment.user.username }}</span>
+                            <p class="comment-text"><b>Comment:</b> {{ comment.body }}</p>
+                            <p class="comment-text"><b>Question:</b> {{ comment.questions }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+                <div class="row me-3">
+                    <div class="col-8">
+                        <div class="form-container">
+                            <h4>Izoh qoldirish</h4>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ comment_form.as_p }}
+                                <button type="submit" class="btn btn-success">Jo'natish</button><br><br>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 </center>
 {% endblock content %}
